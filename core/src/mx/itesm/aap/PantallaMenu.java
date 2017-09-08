@@ -55,6 +55,7 @@ class PantallaMenu extends Pantalla {
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(texturaBtnJugar));
         ImageButton btnPlay = new ImageButton(trdPlay);
 
+
         btnPlay.setPosition(ANCHO/4-btnPlay.getWidth()/2,0.1f*ALTO);
         escenaMenu.addActor(btnPlay);
 
@@ -62,17 +63,32 @@ class PantallaMenu extends Pantalla {
         btnPlay.addListener( new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //super.clicked(event, x, y);
-                Gdx.app.log("clicked","**************************");
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","***PANTALLA JUEGO***");
                 juego.setScreen(new PantallaJuego(juego));
             }
-        } );
+        });
+
+
 
         TextureRegionDrawable trdAyuda = new TextureRegionDrawable(new TextureRegion(texturaBtnAyuda));
         ImageButton btnAyuda = new ImageButton(trdAyuda);
 
         btnAyuda.setPosition(ANCHO/2-btnAyuda.getWidth()/8,0.1f*ALTO);
         escenaMenu.addActor(btnAyuda);
+
+
+        btnAyuda.addListener( new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","***AYUDA PANTALLA***");
+                juego.setScreen(new PantallaAyuda(juego));
+            }
+
+
+        });
     }
 
     @Override
