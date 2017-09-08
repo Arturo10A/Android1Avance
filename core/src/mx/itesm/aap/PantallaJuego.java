@@ -78,9 +78,13 @@ class PantallaJuego extends Pantalla {
         public boolean keyDown(int keycode) {
 
             if (keycode == Input.Keys.LEFT){
-                personaje.mover(-DX_PERSONAJE);
+                personaje.mover(-DX_PERSONAJE,0);
             }if (keycode == Input.Keys.RIGHT){
-                personaje.mover(DX_PERSONAJE);
+                personaje.mover(DX_PERSONAJE,0);
+            }if (keycode == Input.Keys.DOWN){
+                personaje.mover(0,-DY_PERSONAJE);
+            }if (keycode == Input.Keys.UP){
+                personaje.mover(0,DY_PERSONAJE);
             }
 
             return false;

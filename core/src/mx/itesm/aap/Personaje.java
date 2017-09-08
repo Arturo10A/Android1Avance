@@ -29,7 +29,8 @@ class Personaje {
     }
 
 
-    public void mover (float dx){
+    public void mover (float dx, float dy){
         x += dx;
+        y += dy;
     }
 }
