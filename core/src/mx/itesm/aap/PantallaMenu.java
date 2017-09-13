@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,6 +29,8 @@ class PantallaMenu extends Pantalla {
     private Texture texturaBtnJugar;
     private Texture texturaBtnAyuda;
 
+    private Texto texto;
+
     public PantallaMenu(Juego juego) {
         this.juego = juego;
     }
@@ -38,6 +41,10 @@ class PantallaMenu extends Pantalla {
         cargarTexturas(); //Carga imagenes
         crearEcenaMenu(); //Crea la escena
         Gdx.input.setInputProcessor(escenaMenu);
+
+        batch = new SpriteBatch();
+
+        texto = new Texto();
 
     }
 
@@ -93,9 +100,13 @@ class PantallaMenu extends Pantalla {
 
     @Override
     public void render(float delta) {
-        borrarPantalla(0.0f,0.0f,0.0f);
+        borrarPantalla(1.0f,1.0f,1.0f);
         batch.setProjectionMatrix(camara.combined);
+
+        batch.begin();
         escenaMenu.draw();
+        batch.end();
+
     }
 
     @Override

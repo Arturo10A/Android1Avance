@@ -63,7 +63,7 @@ class PantallaCargando implements Screen {
 
         tiempo += Gdx.graphics.getDeltaTime();
 
-        if (tiempo >= 3){
+        if (tiempo >= 1){
 
             juego.setScreen(new PantallaMenu(juego));
 
