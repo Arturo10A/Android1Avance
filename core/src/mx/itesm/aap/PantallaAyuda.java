@@ -22,15 +22,14 @@ class PantallaAyuda extends Pantalla {
 
     private Texture ecenario;  //Imagen del ecenario
 
-    private Texture texturaFondoPantallaAyudad;
+    private Texture texturaFondoPantallaAyudad; //Fondo del ecenario
 
-    private Texture goBackbotton;
 
-    private Texto texto;
+    private Texto texto; // Variable que asignara todos los textos que deasemos mostrar en la pantalla
 
-    private Stage ecenaAyuda;
+    private Stage ecenaAyuda; /* Variable encargada de divujar todo nuestro escenario */
 
-    private Texture texturaBtnGoBack;
+    private Texture texturaBtnGoBack; //Boton de regresp
 
 
 
@@ -55,7 +54,7 @@ class PantallaAyuda extends Pantalla {
     }
 
     public void cargarTexturas(){
-        texturaBtnGoBack = new Texture("ayuda.png");
+        texturaBtnGoBack = new Texture("button_back.png");
 
         //Fondo para este ecenario
         texturaFondoPantallaAyudad = new Texture("img.jpg");
@@ -75,7 +74,6 @@ class PantallaAyuda extends Pantalla {
         btnGoBack.setPosition(ANCHO-btnGoBack.getWidth(),ALTO-btnGoBack.getHeight());
 
         //Fondo de pantalla
-
         TextureRegionDrawable backWall = new TextureRegionDrawable(new TextureRegion(texturaFondoPantallaAyudad));
         Image back = new Image(backWall);
         back.setPosition(ANCHO/2-back.getWidth()/2,ALTO/2-back.getHeight()/2);
@@ -103,23 +101,21 @@ class PantallaAyuda extends Pantalla {
         borrarPantalla(0,0,0);
         batch.setProjectionMatrix(camara.combined);
 
+        //Dibujamos los elementos graficos
         batch.begin();
-
-        texto.mostrarMensaje(batch,"Rodrigo Narvaez",Pantalla.ANCHO/2,Pantalla.ALTO/1.5f);
-        texto.mostrarMensaje(batch,"Monse Designer",Pantalla.ANCHO/2,Pantalla.ALTO/1.7f);
-        texto.mostrarMensaje(batch,"Alexis",Pantalla.ANCHO/2,Pantalla.ALTO/1.9f);
-        texto.mostrarMensaje(batch,"Arturo Amador Sniper Developer",Pantalla.ANCHO/2,Pantalla.ALTO/2.1f);
 
         ecenaAyuda.draw();
 
         batch.end();
 
+        //Dibujamos los elementos tipo texto de badLogic
+
         batch.begin();
 
-        texto.mostrarMensaje(batch,"Rodrigo Narvaez",Pantalla.ANCHO/2,Pantalla.ALTO/1.5f);
-        texto.mostrarMensaje(batch,"Monse Designer",Pantalla.ANCHO/2,Pantalla.ALTO/1.7f);
-        texto.mostrarMensaje(batch,"Alexis",Pantalla.ANCHO/2,Pantalla.ALTO/1.9f);
-        texto.mostrarMensaje(batch,"Arturo Amador Sniper Developer",Pantalla.ANCHO/2,Pantalla.ALTO/2.1f);
+        texto.mostrarMensaje(batch,"JOSE RODRIGO NARVAEZ - SENIOR JAVA DEVELOPER",Pantalla.ANCHO/2,Pantalla.ALTO/1.5f);
+        texto.mostrarMensaje(batch,"MONSE LIRA - DESIGNER",Pantalla.ANCHO/2,Pantalla.ALTO/1.7f);
+        texto.mostrarMensaje(batch,"JORGE ALEXIS RUBIO SUMANO - Content cordinator",Pantalla.ANCHO/2,Pantalla.ALTO/1.9f);
+        texto.mostrarMensaje(batch,"ARTURO AMDOR - CTO SNIPER DEVELOPER",Pantalla.ANCHO/2,Pantalla.ALTO/2.1f);
 
 
         batch.end();

@@ -5,6 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Created by Arturo on 05/09/17.
@@ -23,19 +29,65 @@ class PantallaJuego extends Pantalla {
     private int DX_PERSONAJE=10;
     private int DY_PERSONAJE =10;
 
+
+    private Stage escenaJuego;
+    private Texture texturaBtnGoBack; //Boton de regreso
+
+
+    //Texto
+
+    private Texto texto;
+
+
+
     public PantallaJuego(Juego juego) {
 
 
         this.juego = juego;
     }
 
+    public void cargarTexturas(){
+        texturaBtnGoBack = new Texture("button_pause.png");
+
+    }
+
+    public void crearEscena(){
+        escenaJuego = new Stage(vista);
+
+        //Boton GOBACK
+
+        TextureRegionDrawable trdGoBack = new TextureRegionDrawable(new TextureRegion(texturaBtnGoBack));
+        ImageButton btnGoBack = new ImageButton(trdGoBack);
+
+        btnGoBack.setPosition(ANCHO-btnGoBack.getWidth()-5,ALTO-btnGoBack.getHeight()-5);
+
+        escenaJuego.addActor(btnGoBack);
+
+        btnGoBack.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","***GO BACK***");
+                juego.setScreen(new PantallaMenu(juego));
+            }
+
+        });
+    }
+
     @Override
     public void show() {
 
-        textureEcenario = new Texture("back.jpg");
-        personaje = new Personaje(ANCHO/2,ALTO/2);
+        cargarTexturas();
+        crearEscena();
 
-        Gdx.input.setInputProcessor(new ProcesadorEventos());
+        textureEcenario = new Texture("inicio.png");
+        personaje = new Personaje(ANCHO/4,ALTO/2);
+
+        Gdx.input.setInputProcessor(escenaJuego);
+        //Gdx.input.setInputProcessor(new ProcesadorEventos());
+
+        texto = new Texto();
     }
 
     @Override
@@ -52,6 +104,12 @@ class PantallaJuego extends Pantalla {
         personaje.render(batch);
 
 
+        texto.mostrarMensaje(batch,"Vida: 100%",50,Pantalla.ALTO/1.02f);
+
+        batch.end();
+
+        batch.begin();
+        escenaJuego.draw();
         batch.end();
 
 
@@ -72,7 +130,7 @@ class PantallaJuego extends Pantalla {
 
     }
 
-    private class ProcesadorEventos implements InputProcessor{
+   /* private class ProcesadorEventos implements InputProcessor{
 
         @Override
         public boolean keyDown(int keycode) {
@@ -87,7 +145,7 @@ class PantallaJuego extends Pantalla {
                 personaje.mover(0,DY_PERSONAJE);
             }
 
-            return false;
+            return true;
         }
 
         @Override
@@ -124,5 +182,5 @@ class PantallaJuego extends Pantalla {
         public boolean scrolled(int amount) {
             return false;
         }
-    }
+    }*/
 }

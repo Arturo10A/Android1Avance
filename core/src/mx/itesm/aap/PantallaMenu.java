@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -28,8 +29,11 @@ class PantallaMenu extends Pantalla {
     //Texturas de los botones
     private Texture texturaBtnJugar;
     private Texture texturaBtnAyuda;
-
+    private Texture texturaBtnSettings;
+    private Texture texturaBtnInstructions;
     private Texto texto;
+
+    private Texture fondoPantalla;
 
     public PantallaMenu(Juego juego) {
         this.juego = juego;
@@ -43,14 +47,16 @@ class PantallaMenu extends Pantalla {
         Gdx.input.setInputProcessor(escenaMenu);
 
         batch = new SpriteBatch();
-
         texto = new Texto();
 
     }
 
     private void cargarTexturas() {
-        texturaBtnJugar = new Texture("Jugar.png");
-        texturaBtnAyuda = new Texture("ayuda.png");
+        texturaBtnJugar = new Texture("button_play.png");
+        texturaBtnAyuda = new Texture("button_about-us.png");
+        texturaBtnSettings = new Texture("button_settings.png");
+        texturaBtnInstructions = new Texture("button_instructions.png");
+        fondoPantalla = new Texture("MenuFondo.png");
     }
 
     private void crearEcenaMenu() {
@@ -61,10 +67,54 @@ class PantallaMenu extends Pantalla {
 
         TextureRegionDrawable trdPlay = new TextureRegionDrawable(new TextureRegion(texturaBtnJugar));
         ImageButton btnPlay = new ImageButton(trdPlay);
+        btnPlay.setPosition(ANCHO/2-btnPlay.getWidth()/2,ALTO*0.37f);
+
+        //Boton Settings
 
 
-        btnPlay.setPosition(ANCHO/4-btnPlay.getWidth()/2,0.1f*ALTO);
-        escenaMenu.addActor(btnPlay);
+
+        TextureRegionDrawable trdSettings = new TextureRegionDrawable(new TextureRegion(texturaBtnSettings));
+        ImageButton btnSettings = new ImageButton(trdSettings);
+        btnSettings.setPosition(ANCHO/2-btnSettings.getWidth()/2,ALTO*0.28f);
+
+        btnSettings.addListener( new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","***AYUDA Settings***");
+                juego.setScreen(new PantallaSettings(juego));
+            }
+
+
+        });
+
+        //Boton instruciones
+
+        TextureRegionDrawable trdIntruction = new TextureRegionDrawable(new TextureRegion(texturaBtnInstructions));
+        ImageButton btnIntruction = new ImageButton(trdIntruction);
+        btnIntruction.setPosition(ANCHO/2-btnPlay.getWidth()/2,0.2f*ALTO);
+
+        btnIntruction.addListener( new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Gdx.app.log("clicked","***AYUDA Intruciones***");
+                juego.setScreen(new PantallaInstruciones(juego));
+            }
+
+
+        });
+
+
+        //Fondo de pantalla
+
+        TextureRegionDrawable backWall = new TextureRegionDrawable(new TextureRegion(fondoPantalla));
+        Image back = new Image(backWall);
+        back.setPosition(ANCHO/2-back.getWidth()/2,ALTO/2-back.getHeight()/2);
+        escenaMenu.addActor(back);
+
 
         //Listener del Botón
         btnPlay.addListener( new ClickListener(){
@@ -77,15 +127,14 @@ class PantallaMenu extends Pantalla {
         });
 
 
-
-        TextureRegionDrawable trdAyuda = new TextureRegionDrawable(new TextureRegion(texturaBtnAyuda));
-        ImageButton btnAyuda = new ImageButton(trdAyuda);
-
-        btnAyuda.setPosition(ANCHO/2-btnAyuda.getWidth()/8,0.1f*ALTO);
-        escenaMenu.addActor(btnAyuda);
+        //Boton aboutUS
+        TextureRegionDrawable trdAboutUs = new TextureRegionDrawable(new TextureRegion(texturaBtnAyuda));
+        ImageButton btnAboutUs = new ImageButton(trdAboutUs);
+        btnAboutUs.setPosition(ANCHO/2-btnAboutUs.getWidth()/2,0.13f*ALTO);
 
 
-        btnAyuda.addListener( new ClickListener(){
+
+        btnAboutUs.addListener( new ClickListener(){
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -96,6 +145,14 @@ class PantallaMenu extends Pantalla {
 
 
         });
+
+
+        //add actors
+
+        escenaMenu.addActor(btnSettings);
+        escenaMenu.addActor(btnAboutUs);
+        escenaMenu.addActor(btnPlay);
+        escenaMenu.addActor(btnIntruction);
     }
 
     @Override

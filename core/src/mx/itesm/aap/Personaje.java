@@ -18,7 +18,7 @@ class Personaje {
 
         this.x = x;
         this.y = y;
-        textureNave = new Texture("nave.png");
+        textureNave = new Texture("jett.png");
 
     }
 
